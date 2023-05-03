@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {Offre, Request} from '../../model/Offre';
 import {OffreServiceService} from '../../services/offre-service.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-update-request',
@@ -18,7 +19,7 @@ export class UpdateRequestComponent implements OnInit {
   pendingStatus:any
   id:any
 
-  constructor(private fb: FormBuilder , private offreService :OffreServiceService,
+  constructor(private fb: FormBuilder , private offreService :OffreServiceService, private toastr: ToastrService,
               public dialogRef: MatDialogRef<UpdateRequestComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,) {}
 
@@ -50,6 +51,8 @@ export class UpdateRequestComponent implements OnInit {
     this.request.type = this.offreForm.get('type').value
     this.request.budget = this.offreForm.get('budget').value
     this.offreService.updateRequest(this.request ,this.data.id).subscribe(res=>{
+      this.toastr.success('Request Ajoutee', 'Success!');
+      this.dialogRef.close();
       console.log(res)
     })
 

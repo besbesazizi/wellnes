@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {Offre} from '../../model/Offre';
 import {OffreServiceService} from '../../services/offre-service.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-update-offre',
@@ -19,7 +20,7 @@ export class UpdateOffreComponent implements OnInit {
 
   constructor(private fb: FormBuilder , private offreService :OffreServiceService,
               public dialogRef: MatDialogRef<UpdateOffreComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any,) {}
+              @Inject(MAT_DIALOG_DATA) public data: any,private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.offre = new Offre()
@@ -46,6 +47,8 @@ export class UpdateOffreComponent implements OnInit {
     this.offre.creation_date = this.offreForm.get('expiration_date').value
     this.offre.orderPrice = this.offreForm.get('orderPrice').value
     this.offreService.updateOffre(this.offre ,this.data.id).subscribe(res=>{
+      this.toastr.success('Request Ajoutee', 'Success!');
+      this.dialogRef.close();
       console.log(res)
     })
 

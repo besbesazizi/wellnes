@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {Offre} from '../../model/Offre';
 import {OffreServiceService} from '../../services/offre-service.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {ToastrService} from 'ngx-toastr';
 declare var $: any;
 interface type {
   value: string;
@@ -27,7 +28,7 @@ export class AddOffreComponent implements OnInit {
   ];
   constructor(private fb: FormBuilder , private offreService :OffreServiceService,
               public dialogRef: MatDialogRef<AddOffreComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any,) {}
+              @Inject(MAT_DIALOG_DATA) public data: any,private toastr: ToastrService) {}
 
   ngOnInit(): void {
 
@@ -53,6 +54,8 @@ export class AddOffreComponent implements OnInit {
     this.offre.creation_date = this.offreForm.get('expiration_date').value
     this.offre.orderPrice = this.offreForm.get('orderPrice').value
     this.offreService.addOffre(this.offre).subscribe(res=>{
+      this.toastr.success('Request Ajoutee', 'Success!');
+      this.dialogRef.close();
       console.log(res)
     })
 

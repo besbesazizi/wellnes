@@ -6,6 +6,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {ConfirmationComponent} from '../../confirmation/confirmation.component';
 import {AddOffreComponent} from '../add-offre/add-offre.component';
 import {UpdateOffreComponent} from '../update-offre/update-offre.component';
+import {ToastrService} from 'ngx-toastr';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -22,19 +23,21 @@ export interface PeriodicElement {
 export class OffreListComponent implements OnInit {
   displayedColumns: string[] = [ 'Name','description','Date','expiration','archived', 'actions'];
   dataSource :any
-  constructor(private OffreServiceService :OffreServiceService,public dialog: MatDialog) { }
+  constructor(private OffreServiceService :OffreServiceService,public dialog: MatDialog,private toastr: ToastrService) { }
   @ViewChild(MatSort) sort: MatSort;
 
   ngAfterViewInit() {
   }
 
   ngOnInit(): void {
+   this.getAll()
+  }
+  getAll(){
     this.OffreServiceService.getOffres().subscribe(res=>{
       this.dataSource=res
       console.log(res)
     })
   }
-
   delete(element: any) {
     let dialogRef =  this.dialog.open(ConfirmationComponent)
     dialogRef.afterClosed().subscribe(result => {
@@ -45,6 +48,10 @@ export class OffreListComponent implements OnInit {
       }
       else console.log('nope');
     });
+    dialogRef.afterClosed().subscribe(result => {
+      this.toastr.success('delete ...!', 'Success!');
+      this.getAll()
+    });
   }
 
   edit(element :any){
@@ -53,6 +60,9 @@ export class OffreListComponent implements OnInit {
       height :'600px',
       data:element
     })
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAll()
+    });
     console.log(element)
   }
   add(){
@@ -61,5 +71,8 @@ export class OffreListComponent implements OnInit {
       height :'600px',
 
     })
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAll()
+    });
   }
 }

@@ -24,11 +24,14 @@ export class ListRequestComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAll()
+  }
+
+  getAll(){
     this.OffreServiceService.getRequests().subscribe(res=>{
       this.dataSource=res
     })
   }
-
   delete(element: any) {
     let dialogRef =  this.dialog.open(ConfirmationComponent)
     dialogRef.afterClosed().subscribe(result => {
@@ -47,6 +50,9 @@ export class ListRequestComponent implements OnInit {
       height :'800px',
       data:element
     })
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAll()
+    });
     console.log(element)
   }
   add(){
@@ -55,6 +61,9 @@ export class ListRequestComponent implements OnInit {
       height :'800px',
 
     })
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAll()
+    });
   }
 
 }

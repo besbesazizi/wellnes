@@ -33,14 +33,14 @@
         <mat-error >test</mat-error>
       </mat-form-field>
     </div>
-    <div class="example-container">
-      <label for="exampleInputdate">status :</label>
-      <mat-form-field appearance="fill">
-        <mat-label>status  </mat-label>
-        <input matInput formControlName="stateRequest" >
-        <mat-error >test</mat-error>
-      </mat-form-field>
-    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>status</mat-label>
+      <mat-select  formControlName="stateRequest">
+        <mat-option *ngFor="let type of type" [value]="type.value" >
+          {{type.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
 
     <div class="form-group">

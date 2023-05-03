@@ -3,7 +3,11 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {Offre, Request} from '../../model/Offre';
 import {OffreServiceService} from '../../services/offre-service.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-
+import {ToastrService} from 'ngx-toastr';
+interface type {
+  value: string;
+  viewValue: string;
+}
 @Component({
   selector: 'app-add-request',
   templateUrl: './add-request.component.html',
@@ -11,6 +15,11 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 })
 export class AddRequestComponent implements OnInit {
 
+  type: type[] = [
+    {value: 'confirmed', viewValue: 'confirmed'},
+    {value: 'cancelled', viewValue: 'cancelled'},
+
+  ];
   offreForm: FormGroup;
   request:Request
   pendingStatus:any
@@ -18,7 +27,7 @@ export class AddRequestComponent implements OnInit {
 
   constructor(private fb: FormBuilder , private offreService :OffreServiceService,
               public dialogRef: MatDialogRef<AddRequestComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any,) {}
+              @Inject(MAT_DIALOG_DATA) public data: any,private toastr: ToastrService) {}
 
   ngOnInit(): void {
 
@@ -48,6 +57,8 @@ export class AddRequestComponent implements OnInit {
     this.request.budget = this.offreForm.get('budget').value
     this.request.stateRequest = this.offreForm.get('stateRequest').value
     this.offreService.addRequest(this.request).subscribe(res=>{
+      this.toastr.success('Request Ajoutee', 'Success!');
+      this.dialogRef.close();
       console.log(res)
     })
 
