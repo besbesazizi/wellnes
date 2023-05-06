@@ -1,12 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
+import {MatDialog} from '@angular/material/dialog';
+import {ToastrService} from 'ngx-toastr';
+import {OffreServiceService} from '../services/offre-service.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+ export class DashboardComponent implements OnInit {
+  poucentage :any
+  constructor(private OffreServiceService :OffreServiceService,public dialog: MatDialog,private toastr: ToastrService) { }
   public lineBigDashboardChartType;
   public gradientStroke;
   public chartColor;
@@ -57,9 +62,10 @@ export class DashboardComponent implements OnInit {
       return "rgb(" + r + ", " + g + ", " + b + ")";
     }
   }
-  constructor() { }
+
 
   ngOnInit() {
+    this.pourcentage()
     this.chartColor = "#FFFFFF";
     this.canvas = document.getElementById("bigDashboardChart");
     this.ctx = this.canvas.getContext("2d");
@@ -411,5 +417,12 @@ export class DashboardComponent implements OnInit {
       }
 
     this.lineChartGradientsNumbersType = 'bar';
+  }
+
+  pourcentage(){
+    this.OffreServiceService.statistics().subscribe(res=>{
+      this.poucentage=res
+      console.log(res)
+    })
   }
 }

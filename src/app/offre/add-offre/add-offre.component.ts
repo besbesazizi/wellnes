@@ -19,6 +19,7 @@ export class AddOffreComponent implements OnInit {
   offreForm: FormGroup;
   offre:Offre
   pendingStatus:any
+  disable:boolean=false
   id:any
   type: type[] = [
     {value: 'GALA', viewValue: 'Gala'},
@@ -48,10 +49,11 @@ export class AddOffreComponent implements OnInit {
   }
 
   createEvent(){
+    this. validateDates()
     this.offre.name = this.offreForm.get('name').value
     this.offre.description = this.offreForm.get('description').value
     this.offre.expiration_date = this.offreForm.get('expiration_date').value
-    this.offre.creation_date = this.offreForm.get('expiration_date').value
+    this.offre.creation_date = this.offreForm.get('creation_date').value
     this.offre.orderPrice = this.offreForm.get('orderPrice').value
     this.offreService.addOffre(this.offre).subscribe(res=>{
       this.toastr.success('Request Ajoutee', 'Success!');
@@ -60,6 +62,17 @@ export class AddOffreComponent implements OnInit {
     })
 
 
+  }
+
+  validateDates() {
+    const creationDate = this.offreForm.get('creation_date')?.value;
+    const expirationDate = this.offreForm.get('expiration_date')?.value;
+
+    if (creationDate && expirationDate && creationDate < expirationDate) {
+      this.disable=false
+    } else {
+      this.disable = true
+    }
   }
 
 }

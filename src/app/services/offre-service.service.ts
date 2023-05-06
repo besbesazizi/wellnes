@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient,HttpParams} from '@angular/common/http';
 import {Offre,Request} from '../model/Offre';
 
 @Injectable({
@@ -35,7 +35,27 @@ export class OffreServiceService {
   getOffres()  {
     return this.httpClient.get(this.baseURL + '/AllOffers');
   }
+  getOffresArchived()  {
+    return this.httpClient.get(this.baseURL + '/AllOffersArchived');
+  }
   getRequests( )  {
     return this.httpClient.get(this.baseURL + '/AllRequests');
+  }
+
+  bestOff(){
+    return this.httpClient.get(this.baseURL + '/best-off');
+  }
+  likeOffre(id:any){
+    return this.httpClient.get(this.baseURL +'/'+id+ '/like')
+  }
+  dislikeOffre(id:any){
+    return this.httpClient.get(this.baseURL +'/'+id+ '/dislike')
+  }
+  statistics(){
+    return this.httpClient.get(this.baseURL + '/statistics')
+  }
+  similar(descriptionRequest:any, decriptionOffre){
+
+    return this.httpClient.get(this.baseURL + '/cosine-similarity/'+decriptionOffre+'/'+descriptionRequest)
   }
 }

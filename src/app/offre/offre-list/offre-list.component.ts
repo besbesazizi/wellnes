@@ -7,6 +7,7 @@ import {ConfirmationComponent} from '../../confirmation/confirmation.component';
 import {AddOffreComponent} from '../add-offre/add-offre.component';
 import {UpdateOffreComponent} from '../update-offre/update-offre.component';
 import {ToastrService} from 'ngx-toastr';
+import {CalculerSimillarComponent} from '../calculer-simillar/calculer-simillar.component';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -23,6 +24,7 @@ export interface PeriodicElement {
 export class OffreListComponent implements OnInit {
   displayedColumns: string[] = [ 'Name','description','Date','expiration','archived', 'actions'];
   dataSource :any
+  check:any
   constructor(private OffreServiceService :OffreServiceService,public dialog: MatDialog,private toastr: ToastrService) { }
   @ViewChild(MatSort) sort: MatSort;
 
@@ -67,12 +69,34 @@ export class OffreListComponent implements OnInit {
   }
   add(){
     let dialogRef =  this.dialog.open(AddOffreComponent,{
-      width :'700px',
+      width :'800px',
       height :'600px',
 
     })
     dialogRef.afterClosed().subscribe(result => {
       this.getAll()
     });
+  }
+  setAllOffre(event:any){
+    this.getAll()
+  }
+  setAllOffreArchived(event:any){
+    this.OffreServiceService.getOffresArchived().subscribe(res=>{
+      this.dataSource=res
+      console.log(res)
+    })
+  }
+  setAllOffreBestOff(event:any){
+    this.OffreServiceService.bestOff().subscribe(res=>{
+      this.dataSource=res
+    })
+  }
+
+  calculerSimilarty(){
+    let dialogRef =  this.dialog.open(CalculerSimillarComponent,{
+      width :'700px',
+      height :'350px',
+    })
+
   }
 }

@@ -6,7 +6,19 @@
       <div class="card">
         <div class="card-header">
           <h4 class="card-title"> List Offres </h4>
-          <button (click)="add()" class="btn btn-success" >add</button>
+         <div style="display: flex">
+           <button (click)="add()" class="btn btn-success" >add</button>
+           <button (click)="calculerSimilarty()" class="btn btn-success" >Calculer</button>
+         </div>
+
+          <section class="example-section">
+            <label class="example-margin">Show Offers:</label>
+            <mat-radio-group [(ngModel)]="check">
+              <mat-radio-button (change)="setAllOffre($event)" class="example-margin" style="margin-right: 20px!important;margin-left: 20px!important;" value="after">All</mat-radio-button>
+              <mat-radio-button (change)="setAllOffreArchived($event)" class="example-margin" value="before">Archive</mat-radio-button>
+              <mat-radio-button (change)="setAllOffreBestOff($event)" class="example-margin" value="before" style="margin-right: 20px!important;margin-left: 20px!important;">Best Off</mat-radio-button>
+            </mat-radio-group>
+          </section>
         </div>
         <div class="card-body">
           <table mat-table [dataSource]="dataSource" matSort

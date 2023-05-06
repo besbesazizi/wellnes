@@ -51,6 +51,7 @@ import { UpdateRequestComponent } from './Request/update-request/update-request.
 import { DeleteRequestComponent } from './Request/delete-request/delete-request.component';
 import { AddRequestComponent } from './Request/add-request/add-request.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
+import { CalculerSimillarComponent } from './offre/calculer-simillar/calculer-simillar.component';
 
 
 @NgModule({
@@ -109,6 +110,7 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
     DeleteRequestComponent,
     AddRequestComponent,
     ConfirmationComponent,
+    CalculerSimillarComponent,
 
   ],
   providers: [],
