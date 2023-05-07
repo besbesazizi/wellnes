@@ -14,7 +14,7 @@ interface type {
   styleUrls: ['./add-request.component.css']
 })
 export class AddRequestComponent implements OnInit {
-
+  disable:boolean=false
   type: type[] = [
     {value: 'confirmed', viewValue: 'confirmed'},
     {value: 'cancelled', viewValue: 'cancelled'},
@@ -49,6 +49,7 @@ export class AddRequestComponent implements OnInit {
   }
 
   createEvent(){
+    this. validateDates()
     this.request.name = this.offreForm.get('name').value
     this.request.description = this.offreForm.get('description').value
     this.request.expirationDate = this.offreForm.get('expirationDate').value
@@ -65,5 +66,15 @@ export class AddRequestComponent implements OnInit {
 
   }
 
+  validateDates() {
+    const creationDate = this.offreForm.get('creationDate')?.value;
+    const expirationDate = this.offreForm.get('expirationDate')?.value;
+
+    if (creationDate && expirationDate && creationDate < expirationDate) {
+      this.disable=false
+    } else {
+      this.disable = true
+    }
+  }
 
 }

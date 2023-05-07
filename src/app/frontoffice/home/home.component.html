@@ -2,7 +2,7 @@
 <div class="hero_area">
 
     <div class="hero_bg_box">
-        <img src="../../../assets/img/hero-bg.png" alt="">
+        <img src="../../../assets/img/bg.png" alt="">
     </div>
 
     <!-- header section strats -->
@@ -165,6 +165,9 @@
                             <p>
                               {{item.description}}
                             </p>
+                          <p>
+                            {{item.discount_details}}
+                          </p>
                             <div style="display: flex; text-align: center">
                               <div style="display: flex">
                                 <p style="margin-top: 13px;">{{item.nbLikeOffer}}</p>
@@ -189,7 +192,21 @@
               <a  (click)="bestOff()" style=" margin-left: 10 px">
                 best Off
               </a>
+              <a  (click)="Matching()" style=" margin-left: 10 px">
+                Matching
+              </a>
             </div>
+              <div  class="btn-box">
+                <mat-form-field appearance="fill">
+                  <mat-label>requests</mat-label>
+                  <mat-select   [(ngModel)]="requestSelected">
+                    <mat-option *ngFor="let request of requests" [value]="request.id" >
+                      {{request.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
 
         </div>
     </div>

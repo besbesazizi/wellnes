@@ -55,7 +55,9 @@ export class OffreServiceService {
     return this.httpClient.get(this.baseURL + '/statistics')
   }
   similar(descriptionRequest:any, decriptionOffre){
-
     return this.httpClient.get(this.baseURL + '/cosine-similarity/'+decriptionOffre+'/'+descriptionRequest)
+  }
+  matching(idRequest:any){
+    return this.httpClient.get(this.baseURL + '/requests/matching-offers/'+idRequest)
   }
 }

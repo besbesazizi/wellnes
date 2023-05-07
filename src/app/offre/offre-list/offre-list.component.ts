@@ -22,7 +22,7 @@ export interface PeriodicElement {
   styleUrls: ['./offre-list.component.css']
 })
 export class OffreListComponent implements OnInit {
-  displayedColumns: string[] = [ 'Name','description','Date','expiration','archived', 'actions'];
+  displayedColumns: string[] = [ 'Name','description','Date','expiration','archived','discount', 'actions'];
   dataSource :any
   check:any
   constructor(private OffreServiceService :OffreServiceService,public dialog: MatDialog,private toastr: ToastrService) { }

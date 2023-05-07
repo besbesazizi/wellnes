@@ -58,7 +58,13 @@
               </th>
               <td mat-cell *matCellDef="let element"> {{element.archived}} </td>
             </ng-container>
-
+            <ng-container matColumnDef="discount">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header
+                  sortActionDescription="Sort by number">
+                discount details
+              </th>
+              <td mat-cell *matCellDef="let element"> {{element.discount_details}} </td>
+            </ng-container>
             <ng-container matColumnDef="actions">
               <th mat-header-cell *matHeaderCellDef mat-sort-header
                   sortActionDescription="Sort by symbol">

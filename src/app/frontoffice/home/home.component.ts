@@ -10,11 +10,14 @@ import {OffreServiceService} from '../../services/offre-service.service';
 })
 export class HomeComponent implements OnInit {
   offers:any
+  requests:any
+  requestSelected:any
   constructor(private OffreServiceService :OffreServiceService,public dialog: MatDialog,private toastr: ToastrService) { }
 
 
   ngOnInit(): void {
     this. getAll()
+    this.getAllRequest()
   }
   getAll(){
     this.OffreServiceService.getOffres().subscribe(res=>{
@@ -41,5 +44,16 @@ export class HomeComponent implements OnInit {
   }
   viewAll(){
     this.getAll()
+  }
+  Matching(){
+  this.OffreServiceService.matching(this.requestSelected).subscribe(res=>{
+    this.offers=res
+  })
+  }
+  getAllRequest(){
+    this.OffreServiceService.getRequests().subscribe(res=>{
+      this.requests=res
+      console.log(res)
+    })
   }
 }
